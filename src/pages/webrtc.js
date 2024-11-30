@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Button, Typography, Input } from 'antd';
 import styles from '@/styles/App.module.css'
 import * as log from 'loglevel';
+log.setLevel('debug'); // Puedes usar 'trace', 'debug', 'info', 'warn', 'error'
 
 const { Title, Paragraph } = Typography;
 const { TextArea } = Input;

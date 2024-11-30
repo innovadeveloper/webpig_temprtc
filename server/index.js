@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const wss = require ('./wss');
 
 const HTTPPORT = 4000;
-const WSSPORT = 8090;
+const WSSPORT = 9091;
 
 // env
 process.env.NODE_ENV = app.get('env');
