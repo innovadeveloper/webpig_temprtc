@@ -1,24 +1,7 @@
+version: '3'
 services:
   coturn:
     build: .
-    ports:
-      - "3478:3478"  # Puerto estándar para TURN
-      - "3478:3478/udp"  # UDP para TURN
     volumes:
-      # - ./turnserver.conf:/etc/coturn/turnserver.conf
       - ./turn-server.conf:/etc/turnserver.conf
-      # - /Users/mac/Documents/Files/webpig_main_coturn/coturn/turnserver.conf:/etc/turnserver.conf
-      # - ./coturn-logs:/etc/coturn/logs  # Monta el directorio de logs desde el host
-      - /tmp:/var/run  # Montar el directorio temporal del host al contenedor
     network_mode: "host"
-
-
-# version: '3'
-# services:
-#   coturn:
-#     build: .
-# #    environment:
-# #      - ./turnserver.conf=/etc/turnserver.conf
-#     volumes:
-#       - ./turnserver.conf:/etc/turnserver.conf
-#     network_mode: "host"

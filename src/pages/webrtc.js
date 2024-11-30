@@ -2,7 +2,10 @@ import { useRef, useState, useEffect } from 'react';
 import { Button, Typography, Input } from 'antd';
 import styles from '@/styles/App.module.css'
 import * as log from 'loglevel';
+
 log.setLevel('debug'); // Puedes usar 'trace', 'debug', 'info', 'warn', 'error'
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+// Ruta del archivo de certificado autofirmado
 
 const { Title, Paragraph } = Typography;
 const { TextArea } = Input;
@@ -99,7 +102,7 @@ function App() {
         };
 
         wsClient.onclose = () => log.debug('ws closed');
-
+        wsClient.onerror = (error) => log.debug('ws error ' , error);
         return () => {
             wsClient.close();
         };
@@ -149,6 +152,7 @@ function App() {
         setJoinButtonDisabled(false);
 
         navigator.getUserMedia({ audio: true, video: false }, (stream) => {
+        // navigator.mediaDevices.getUserMedia({ audio: true, video: false }, (stream) => {
             log.debug('getUserMedia invoked', stream);
             // render local stream on DOM
             if (renderLocalStream) {
@@ -190,6 +194,19 @@ function App() {
 
         setCallButtonDisabled(true);
         setHangupButtonDisabled(false);
+
+        // Comprobación de que localStream tiene el video
+        // if (localStream) {
+        //     const videoTracks = localStream.getVideoTracks();
+        //     if (videoTracks.length > 0) {
+        //         log.debug("Video tracks available:", videoTracks);
+        //     } else {
+        //         log.debug("No video tracks found.");
+        //     }
+        // } else {
+        //     log.error("localStream is undefined.");
+        // }
+
 
         if (localStream.getVideoTracks().length > 0) {
             log.debug(`Using video device: ${localStream.getVideoTracks()[0].label}`);
